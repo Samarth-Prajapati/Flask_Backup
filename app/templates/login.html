@@ -1,0 +1,87 @@
+{% extends 'base.html' %} {% block title %}Login{% endblock %} {% block body %}
+
+<!-- Toast Notification -->
+<div class="toast-container position-fixed top-5 p-2" style="z-index: 1080">
+  {% with messages = get_flashed_messages(with_categories=true) %} {% if
+  messages %} {% for category, message in messages %} {% if category ==
+  'register' or category == 'login1' or category == 'oauth' %}
+  <div
+    class="toast align-items-center text-white bg-secondary border-0"
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+  >
+    <div class="d-flex">
+      <div class="toast-body">{{ message | safe }}</div>
+      <button
+        type="button"
+        class="btn-close btn-close-white me-2 m-auto"
+        data-bs-dismiss="toast"
+        aria-label="Close"
+      ></button>
+    </div>
+  </div>
+  {% endif %} {% endfor %} {% endif %} {% endwith %}
+</div>
+<div class="container my-5">
+  <div
+    class="card mx-auto w-50 w-md-25 p-4 shadow-sm border border-2 border-secondary rounded-5"
+  >
+    <h2 class="text-center mb-4 text-dark fw-bold">
+      <i class="bi bi-box-arrow-in-right me-2"></i>Login
+    </h2>
+    <form
+      method="POST"
+      action="{{ url_for('auth.login') }}"
+      class="justify-content-center"
+    >
+      {{ form.hidden_tag() }}
+
+      <div class="mb-3">
+        {{ form.email.label(class="form-label text-dark fw-semibold") }} {{
+        form.email(class="form-control bg-light text-dark border-secondary
+        rounded-4", placeholder="Enter your email") }} {% if form.email.errors
+        %} {% for error in form.email.errors %}
+        <div class="text-danger small mt-1">{{ error }}</div>
+        {% endfor %} {% endif %}
+      </div>
+
+      <div class="mb-4">
+        {{ form.password.label(class="form-label text-dark fw-semibold") }} {{
+        form.password(class="form-control bg-light text-dark border-secondary
+        rounded-4", placeholder="Enter your password") }} {% if
+        form.password.errors %} {% for error in form.password.errors %}
+        <div class="text-danger small mt-1">{{ error }}</div>
+        {% endfor %} {% endif %}
+      </div>
+
+      <div class="d-grid mb-3">
+        {{ form.submit(class="btn btn-dark text-light fw-bold rounded-4") }}
+      </div>
+    </form>
+    <div class="text-center">
+      <p>Or Login With :</p>
+      <div class="d-flex justify-content-center gap-2">
+        <a
+          href="{{ url_for('auth.google_login') }}"
+          class="btn btn-outline-primary rounded-5"
+          ><i class="bi bi-google text-dark"></i
+        ></a>
+        <a
+          href="{{ url_for('auth.github_login') }}"
+          class="btn btn-outline-dark rounded-5"
+          ><i class="bi bi-github"></i></i
+        ></a>
+      </div>
+    </div>
+    <p class="text-center text-dark mt-2 mb-0">
+      Don't have an account?
+      <a
+        href="{{ url_for('auth.register') }}"
+        class="text-dark fw-semibold text-decoration-underline"
+        >Register</a
+      >
+    </p>
+  </div>
+</div>
+{% endblock %}
