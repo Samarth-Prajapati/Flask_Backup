@@ -1,14 +1,14 @@
 $(document).ready(function () {
 
   // Data Table 
-    $('#userTable').DataTable();
+  $('#userTable,#productTable').DataTable();
 
-  });
+});
 
-      // Toast messages
+// Toast messages
 document.addEventListener('DOMContentLoaded', function () {
-    const toastElList = document.querySelectorAll('.toast');
-    toastElList.forEach(function (toastEl) {
-      new bootstrap.Toast(toastEl, { delay: 2000 }).show();
-    });
+  const toastElList = document.querySelectorAll('.toast');
+  toastElList.forEach(function (toastEl) {
+    new bootstrap.Toast(toastEl, { delay: 2000 }).show();
+  });
 });
